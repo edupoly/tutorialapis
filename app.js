@@ -1,5 +1,6 @@
 var express = require('express')
-var multer  = require('multer')
+var multer  = require('multer');
+var port = process.env.port || 4000
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
       cb(null, __dirname+'/uploads')
@@ -22,4 +23,4 @@ app.use(express.urlencoded({ extended: true }))
 app.use(express.json());
 app.use("/tutorial",tutorialroutes)
 app.use("/quiz",quizroutes)
-app.listen(4000,()=>{console.log("server running on 4000")});
+app.listen(port,()=>{console.log("server running on "+port)});
