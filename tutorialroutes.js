@@ -95,17 +95,24 @@ router.put("/updateTopicByTopicId",(req,res)=>{
         res.json(data)
     })
 })
-router.delete("/deleteTopicById/:topicId",(req,res)=>{
+router.delete("/deleteTopicById/:topicId/:conceptId",(req,res)=>{
     console.log("delete req.params.topicId",req.params.topicId)
-    
-    topic.remove({ _id: req.params.topicId }, function(err,data) {
+    concept.findOneAndUpdate({_id:req.params.conceptId},{$pull:{'topicSequence.topicId':req.params.topicId}},function(err,data){
         if (!err) {
             res.json(data) 
         }
         else {
-                res.json({msg:"error vachindi"})
+            res.json({msg:"error vachindi"})
         }
-    });
+    })
+    // topic.remove({ _id: req.params.topicId }, function(err,data) {
+    //     if (!err) {
+    //         res.json(data) 
+    //     }
+    //     else {
+    //             res.json({msg:"error vachindi"})
+    //     }
+    // });
 })
 module.exports = router;
 
